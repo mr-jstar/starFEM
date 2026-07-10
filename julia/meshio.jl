@@ -772,3 +772,18 @@ function _gmsh_assemble22(
         "physical entities"  => physical_entities
     )
 end
+
+using Serialization
+
+function saveMesh(filename::AbstractString, msh)
+    open(filename, "w") do io
+        serialize(io, msh)
+    end
+    return nothing
+end
+
+function loadMesh(filename::AbstractString)
+    open(filename, "r") do io
+        return deserialize(io)
+    end
+end
